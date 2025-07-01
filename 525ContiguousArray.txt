@@ -1,0 +1,32 @@
+class Solution {
+    public int findMaxLength(int[] nums) 
+    {
+        int len = nums.length;
+        int[] array = new int[2*len+1];
+
+        for (int i=0; i<array.length; i++) 
+        {
+            array[i] = -2;
+        }
+
+        int sum = len;
+        array[sum] = -1;
+        int maxLenth = 0;
+
+        for (int i=0; i<len; i++) 
+        {
+            sum += nums[i] * 2 - 1;
+
+            if (array[sum] == -2) 
+            {
+                array[sum] = i;
+            }
+            else 
+            {
+                maxLenth = Math.max(maxLenth, i-array[sum]);
+            }
+        }
+
+        return maxLenth; 
+    }
+}

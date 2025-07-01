@@ -1,0 +1,51 @@
+class Solution {
+    public int[] numMovesStonesII(int[] stones) 
+    {
+		int[] ans = new int[2];
+		int i = 0;
+        int j = 0;
+        int wsize = Integer.MAX_VALUE;
+        int sCount = Integer.MAX_VALUE;
+        int minMoves = Integer.MAX_VALUE;
+
+		Arrays.sort(stones);
+			 
+        while (j < stones.length) 
+        {
+			wsize = stones[j] - stones[i] + 1;
+			sCount = j - i + 1;
+
+			if (wsize > stones.length) 
+            {
+				i++;
+				continue;
+			}
+			if (wsize == stones.length-1 && sCount == stones.length-1)
+			{
+                minMoves = Math.min(minMoves, 2);
+            }
+            else 
+            {
+                minMoves = Math.min(minMoves, stones.length-sCount);
+            }
+				
+            j++;
+		}
+		
+        ans[0] = minMoves;
+		
+        int maxMoves = 0;
+		
+        if (stones[1] == stones[0] + 1 || stones[stones.length-1] == stones[stones.length-2] + 1)
+		{
+            maxMoves = stones[stones.length-1] - stones[0] + 1 - stones.length;
+        }
+        else 
+		{
+            maxMoves = Math.max(((stones[stones.length-1]-stones[1])-(stones.length-1) + 1),((stones[stones.length-2]-stones[0])-(stones.length-1) + 1));
+        }
+
+        ans[1] = maxMoves;
+		return ans;    
+    }
+}
